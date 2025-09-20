@@ -87,5 +87,5 @@ try:
 except:
     st.warning("dashboard.png not found. Upload it to GitHub!")
 
-st.markdown("---")
-st.markdown("✅ This is a **working AI eDNA prototype** ready for demo and hackathon presentation!")
+on!")
+
