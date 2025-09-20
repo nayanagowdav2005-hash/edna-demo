@@ -18,9 +18,8 @@ st.title("🌊 AI-powered eDNA Biodiversity Dashboard")
 st.markdown("Analyze environmental DNA sequences and predict species with AI.")
 
 # ------------------------------
-# Load sample dataset
+# Sample dataset with annotations
 # ------------------------------
-# Sample CSV data
 data = {
     "SampleID": ["S1", "S2", "S3", "S4", "S5"],
     "eDNA_Sequence": [
@@ -36,13 +35,20 @@ data = {
         "Species C",
         "Species D",
         "Species E"
+    ],
+    "Annotation": [
+        "GeneX: Present, GeneY: Absent",
+        "GeneX: Absent, GeneY: Present",
+        "GeneX: Present, GeneY: Present",
+        "GeneX: Absent, GeneY: Absent",
+        "GeneX: Present, GeneY: Partial"
     ]
 }
 
 df = pd.DataFrame(data)
 
 # ------------------------------
-# Sidebar
+# Sidebar filter
 # ------------------------------
 st.sidebar.header("Filters")
 selected_species = st.sidebar.multiselect(
@@ -54,10 +60,10 @@ selected_species = st.sidebar.multiselect(
 filtered_df = df[df["PredictedSpecies"].isin(selected_species)]
 
 # ------------------------------
-# Show data table
+# Show table with annotations
 # ------------------------------
-st.subheader("Predicted Species Table")
-st.dataframe(filtered_df[["SampleID", "PredictedSpecies", "eDNA_Sequence"]])
+st.subheader("Predicted Species & Annotations")
+st.dataframe(filtered_df[["SampleID", "PredictedSpecies", "eDNA_Sequence", "Annotation"]])
 
 # ------------------------------
 # Species count chart
@@ -71,7 +77,7 @@ fig = px.bar(species_count, x="Species", y="Count", color="Species",
 st.plotly_chart(fig, use_container_width=True)
 
 # ------------------------------
-# Show images (make sure these are uploaded in GitHub)
+# Show images (ensure uploaded to GitHub)
 # ------------------------------
 st.subheader("System Architecture")
 try:
@@ -86,6 +92,3 @@ try:
     st.image(dashboard, caption="Dashboard Preview", use_container_width=True)
 except:
     st.warning("dashboard.png not found. Upload it to GitHub!")
-
-on!")
-
